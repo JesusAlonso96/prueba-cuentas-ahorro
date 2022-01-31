@@ -1,0 +1,10 @@
+@import 'variables';
+
+@mixin  modales {
+    .titulo-modal{
+        font-weight: 300;
+        font-size: 26px;
+        line-height: 1.5em;
+        color: $gris-900;
+    }
+}

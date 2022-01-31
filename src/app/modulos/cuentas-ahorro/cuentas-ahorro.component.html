@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <div class="card tarjeta">
+        <div class="d-flex align-items-center  justify-content-between px-5">
+            <div>
+                <h2 class="card-title">Cuentas de ahorro</h2>
+                <h5 class="card-subtitle">{{cuentasAhorro.length}} {{cuentasAhorro.length == 1 ? 'cuenta de ahorro' : 'cuentas de ahorro'}}</h5>
+            </div>
+            <button (click)="abrirAltaCuentaAhorro()" mat-raised-button class="rounded-pill" color="primary">
+                <mat-icon>add</mat-icon> Nueva cuenta
+            </button>
+        </div>
+        <div class="card-body px-5">
+            <ng-container *ngIf="cuentasAhorro.length > 0; else sinCuentasBloque">
+                <tecas-listado-cuentas-ahorro #listadoCuentas [cuentasAhorro]="cuentasAhorro"></tecas-listado-cuentas-ahorro >
+            </ng-container>
+            <ng-template #sinCuentasBloque>
+                <tecas-alertas [tipo]="TiposAlertas.Informacion" mensaje="No hay cuentas de ahorro registradas por el momento.">
+                </tecas-alertas>
+            </ng-template>
+        </div>
+    </div>
+</div>

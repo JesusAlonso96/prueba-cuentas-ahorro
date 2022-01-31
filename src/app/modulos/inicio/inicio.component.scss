@@ -1,0 +1,22 @@
+@import 'variables';
+
+.menu-lateral {
+  border-right: 1px solid rgba($gris-800, .120);
+  box-shadow: -10px 0px 23px -6px rgba($gris-900,0.68);
+}
+
+ul {
+  li {
+    color: $gris-800;
+
+    &:hover {
+      color: $primario;
+      border-right: 2px solid $primario;
+    }
+  }
+}
+
+.menu-seleccionado {
+  color: $primario !important;
+  border-right: 2px solid $primario;
+}

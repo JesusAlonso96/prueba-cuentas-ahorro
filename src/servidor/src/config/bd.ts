@@ -1,0 +1,1 @@
+export const BD_URL ='mongodb+srv://admin:admin12345@cluster0.ab7eh.mongodb.net/cuentasahorro?retryWrites=true&w=majority'

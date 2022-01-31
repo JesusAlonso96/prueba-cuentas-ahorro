@@ -1,0 +1,82 @@
+<h2 class="titulo-modal" mat-dialog-title>Agregar nueva cuenta de ahorro</h2>
+<div mat-dialog-content>
+    <form [formGroup]="formularioCuenta" class="form my-1">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Número de cuenta</mat-label>
+                        <input formControlName="numeroCuenta" placeholder="Ingresa el número de cuenta"
+                            autocomplete="off" matInput required>
+                        <mat-error
+                            *ngIf="formularioCuenta.get('numeroCuenta').hasError('required') && (formularioCuenta.get('numeroCuenta').dirty  || formularioCuenta.get('numeroCuenta').touched)">
+                            Por favor, ingresa el numero de cuenta.
+                        </mat-error>
+                        <mat-error
+                            *ngIf="formularioCuenta.get('numeroCuenta').hasError('pattern') && (formularioCuenta.get('numeroCuenta').dirty  || formularioCuenta.get('numeroCuenta').touched)">
+                            {{ExpresionesRegulares[6].mensaje}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6 col-12">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Saldo</mat-label>
+                        <input formControlName="saldo" placeholder="Ingresa el saldo" autocomplete="off" matInput
+                            required>
+                        <mat-error
+                            *ngIf="formularioCuenta.get('saldo').hasError('required') && (formularioCuenta.get('saldo').dirty  || formularioCuenta.get('saldo').touched)">
+                            Por favor, ingresa el saldo inicial.
+                        </mat-error>
+                        <mat-error
+                            *ngIf="formularioCuenta.get('saldo').hasError('pattern') && (formularioCuenta.get('saldo').dirty  || formularioCuenta.get('saldo').touched)">
+                            {{ExpresionesRegulares[7].mensaje}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-12">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>{{cargandoClientes ? 'Buscando los clientes' : 'Clientes'}}</mat-label>
+                        <input formControlName="idCliente" autocomplete="off" matInput (keyup)="buscarClientes()"
+                            placeholder="Buscar al cliente por id" [matAutocomplete]="autoCompletador" required>
+                        <mat-autocomplete #autoCompletador="matAutocomplete" [displayWith]="mostrarCliente">
+                            <ng-container *ngIf="!cargandoClientes">
+                                <mat-option *ngFor="let cliente of clientes" [value]="cliente">
+                                    {{cliente.id + '. ' + cliente.nombre + ' ' + cliente.apellido_paterno}}
+                                </mat-option>
+                            </ng-container>
+                            <mat-option *ngIf="cargandoClientes">
+                                <span>Buscando productos...</span>
+                            </mat-option>
+                            <mat-option
+                                *ngIf="clientes.length == 0 && formularioCuenta.get('idCliente').value != '' && !cargandoClientes  && !tecleo">
+                                <span>La busqueda no arrojó resultados</span>
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error
+                            *ngIf="formularioCuenta.get('idCliente').hasError('required') && (formularioCuenta.get('idCliente').dirty  || formularioCuenta.get('idCliente').touched)">
+                            Por favor, ingresa el cliente.
+                        </mat-error>
+                        <mat-error
+                            *ngIf="formularioCuenta.get('idCliente').hasError('invalido') && (formularioCuenta.get('idCliente').dirty  || formularioCuenta.get('idCliente').touched)">
+                            Por favor, selecciona un cliente valido.
+                        </mat-error>
+                        <mat-hint>Busca al cliente por id, nombre o apellido paterno</mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div align="end" mat-dialog-actions>
+    <button (click)="cerrarModal()" class="mr-2 rounded-pill" mat-button>
+        <mat-icon>close</mat-icon> Cancelar
+    </button>
+    <button (click)="guardarCuentaAhorro()" [disabled]="!formularioCuenta.valid || cargando" class="rounded-pill"
+        color="primary" mat-raised-button>
+        <mat-icon>add</mat-icon> Agregar
+    </button>
+</div>

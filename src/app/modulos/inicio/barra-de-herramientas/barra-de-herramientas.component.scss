@@ -1,0 +1,9 @@
+@import 'variables';
+
+mat-toolbar {
+  box-shadow: -10px 0px 23px -6px rgba($gris-900,0.68);
+  h4 {
+    font-weight: normal;
+    text-transform: uppercase;
+  }
+}

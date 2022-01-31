@@ -1,0 +1,13 @@
+@import 'variables';
+
+.deposito {
+  color: $exito;
+}
+
+.retiro {
+  color: $error;
+}
+
+tr.mat-footer-row {
+  font-weight: bold;
+}

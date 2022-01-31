@@ -1,0 +1,250 @@
+<h2 class="titulo-modal" mat-dialog-title>Agregar nuevo cliente</h2>
+<div mat-dialog-content>
+    <form [formGroup]="formularioCliente" class="form my-1">
+        <!-- INFORMACION GENERAL -->
+        <h3 class="font-weight-normal">Información general</h3>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-4 col-12">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Nombre</mat-label>
+                        <input formControlName="nombre" placeholder="Ingresa el nombre del cliente" autocomplete="off"
+                            matInput required>
+                        <mat-error
+                            *ngIf="formularioCliente.get('nombre').hasError('required') && (formularioCliente.get('nombre').dirty  || formularioCliente.get('nombre').touched)">
+                            Por favor, ingresa el nombre del cliente.
+                        </mat-error>
+                        <mat-error
+                            *ngIf="formularioCliente.get('nombre').hasError('pattern') && (formularioCliente.get('nombre').dirty  || formularioCliente.get('nombre').touched)">
+                            {{ExpresionesRegulares[0].mensaje}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 col-12">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Apellido paterno</mat-label>
+                        <input formControlName="apellido_paterno" placeholder="Ingresa el apellido paterno del cliente"
+                            autocomplete="off" matInput required>
+                        <mat-error
+                            *ngIf="formularioCliente.get('apellido_paterno').hasError('required') && (formularioCliente.get('apellido_paterno').dirty  || formularioCliente.get('apellido_paterno').touched)">
+                            Por favor, ingresa el apellido paterno del cliente.
+                        </mat-error>
+                        <mat-error
+                            *ngIf="formularioCliente.get('apellido_paterno').hasError('pattern') && (formularioCliente.get('apellido_paterno').dirty  || formularioCliente.get('apellido_paterno').touched)">
+                            {{ExpresionesRegulares[0].mensaje}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 col-12">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Apellido materno</mat-label>
+                        <input formControlName="apellido_materno" placeholder="Ingresa el apellido materno del cliente"
+                            autocomplete="off" matInput>
+                        <mat-error
+                            *ngIf="formularioCliente.get('apellido_materno').hasError('pattern') && (formularioCliente.get('apellido_materno').dirty  || formularioCliente.get('apellido_materno').touched)">
+                            {{ExpresionesRegulares[0].mensaje}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-12">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Id</mat-label>
+                        <input formControlName="id" placeholder="Ingresa el id del cliente" autocomplete="off" matInput
+                            required>
+                        <mat-error
+                            *ngIf="formularioCliente.get('id').hasError('required') && (formularioCliente.get('id').dirty  || formularioCliente.get('id').touched)">
+                            Por favor, ingresa el id del cliente.
+                        </mat-error>
+                        <mat-error
+                            *ngIf="formularioCliente.get('id').hasError('pattern') && (formularioCliente.get('id').dirty  || formularioCliente.get('id').touched)">
+                            {{ExpresionesRegulares[1].mensaje}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 col-12">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Edad</mat-label>
+                        <input formControlName="edad" placeholder="Ingresa la edad del cliente" autocomplete="off"
+                            matInput required>
+                        <mat-error
+                            *ngIf="formularioCliente.get('edad').hasError('required') && (formularioCliente.get('edad').dirty  || formularioCliente.get('edad').touched)">
+                            Por favor, ingresa la edad del cliente.
+                        </mat-error>
+                        <mat-error
+                            *ngIf="formularioCliente.get('edad').hasError('pattern') && (formularioCliente.get('edad').dirty  || formularioCliente.get('edad').touched)">
+                            {{ExpresionesRegulares[1].mensaje}}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="formularioCliente.get('edad').hasError('maxlength') && (formularioCliente.get('edad').dirty  || formularioCliente.get('edad').touched)">
+                            La edad solo puede tener una longitud maxima de 3 digitos.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 col-12">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Genero</mat-label>
+                        <mat-select formControlName="genero" required>
+                            <mat-option [value]="Generos.Masculino">
+                                Masculino
+                            </mat-option>
+                            <mat-option [value]="Generos.Femenino">
+                                Femenino
+                            </mat-option>
+                        </mat-select>
+                        <mat-error
+                            *ngIf="formularioCliente.get('genero').hasError('required') && (formularioCliente.get('genero').dirty  || formularioCliente.get('genero').touched)">
+                            Por favor, ingresa el genero del cliente.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <!-- DIRECCION DEL CLIENTE -->
+        <h3 class="font-weight-normal">Dirección</h3>
+        <form formGroupName="direccion">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Calle</mat-label>
+                            <input formControlName="calle" placeholder="Ingresa la calle" autocomplete="off" matInput
+                                required>
+                            <!-- <textarea ></textarea> -->
+                            <mat-error
+                                *ngIf="direccion.get('calle').hasError('required') && (direccion.get('calle').dirty  || direccion.get('calle').touched)">
+                                Por favor, ingresa la calle del cliente.
+                            </mat-error>
+                            <mat-error
+                                *ngIf="direccion.get('calle').hasError('pattern') && (direccion.get('calle').dirty  || direccion.get('calle').touched)">
+                                {{ExpresionesRegulares[2].mensaje}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Colonia</mat-label>
+                            <input formControlName="colonia" placeholder="Ingresa la colonia" autocomplete="off"
+                                matInput required>
+                            <!-- <textarea ></textarea> -->
+                            <mat-error
+                                *ngIf="direccion.get('colonia').hasError('required') && (direccion.get('colonia').dirty  || direccion.get('colonia').touched)">
+                                Por favor, ingresa la colonia del cliente.
+                            </mat-error>
+                            <mat-error
+                                *ngIf="direccion.get('colonia').hasError('pattern') && (direccion.get('colonia').dirty  || direccion.get('colonia').touched)">
+                                {{ExpresionesRegulares[2].mensaje}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-12">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Número exterior</mat-label>
+                            <input formControlName="numeroExterior" placeholder="Ingresa el número exterior"
+                                autocomplete="off" matInput required>
+                            <mat-error
+                                *ngIf="direccion.get('numeroExterior').hasError('required') && (direccion.get('numeroExterior').dirty  || direccion.get('numeroExterior').touched)">
+                                Por favor, ingresa el número exterior.
+                            </mat-error>
+                            <mat-error
+                                *ngIf="direccion.get('numeroExterior').hasError('pattern') && (direccion.get('numeroExterior').dirty  || direccion.get('numeroExterior').touched)">
+                                {{ExpresionesRegulares[3].mensaje}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4 col-12">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Número interior</mat-label>
+                            <input formControlName="numeroInterior" placeholder="Ingresa el número exterior"
+                                autocomplete="off" matInput>
+                            <mat-error
+                                *ngIf="direccion.get('numeroInterior').hasError('pattern') && (direccion.get('numeroInterior').dirty  || direccion.get('numeroInterior').touched)">
+                                {{ExpresionesRegulares[3].mensaje}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4 col-12">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Código postal</mat-label>
+                            <input formControlName="cp" placeholder="Ingresa el número exterior" autocomplete="off"
+                                 required matInput>
+                            <mat-error
+                                *ngIf="direccion.get('cp').hasError('required') && (direccion.get('cp').dirty  || direccion.get('cp').touched)">
+                                Por favor, ingresa código postal.
+                            </mat-error>
+                            <mat-error
+                                *ngIf="direccion.get('cp').hasError('minlength') && (direccion.get('cp').dirty  || direccion.get('cp').touched)">
+                               El código postal admite 5 digitos.
+                            </mat-error>
+                            <mat-error
+                                *ngIf="direccion.get('cp').hasError('maxlength') && (direccion.get('cp').dirty  || direccion.get('cp').touched)">
+                               El código postal solo admite 5 digitos.
+                            </mat-error>
+                            <mat-error
+                                *ngIf="direccion.get('cp').hasError('pattern') && (direccion.get('cp').dirty  || direccion.get('cp').touched)">
+                                {{ExpresionesRegulares[1].mensaje}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" col-12">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Referencias</mat-label>
+                            <textarea formControlName="referencias"
+                                placeholder="Ingresa las referencias de la dirección" autocomplete="off" matInput
+                                required></textarea>
+                            <mat-error
+                                *ngIf="direccion.get('referencias').hasError('pattern') && (direccion.get('referencias').dirty  || direccion.get('referencias').touched)">
+                                {{ExpresionesRegulares[5].mensaje}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Ciudad</mat-label>
+                            <input formControlName="ciudad" placeholder="Ingresa la ciudad" autocomplete="off" matInput
+                                required>
+                            <mat-error
+                                *ngIf="direccion.get('ciudad').hasError('required') && (direccion.get('ciudad').dirty  || direccion.get('ciudad').touched)">
+                                Por favor, ingresa la ciudad.
+                            </mat-error>
+                            <mat-error
+                                *ngIf="direccion.get('ciudad').hasError('pattern') && (direccion.get('ciudad').dirty  || direccion.get('ciudad').touched)">
+                                {{ExpresionesRegulares[4].mensaje}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Estado</mat-label>
+                            <input formControlName="estado" placeholder="Ingresa el estado" autocomplete="off" matInput
+                                required>
+                            <mat-error
+                                *ngIf="direccion.get('estado').hasError('required') && (direccion.get('estado').dirty  || direccion.get('estado').touched)">
+                                Por favor, ingresa el estado.
+                            </mat-error>
+                            <mat-error
+                                *ngIf="direccion.get('estado').hasError('pattern') && (direccion.get('estado').dirty  || direccion.get('estado').touched)">
+                                {{ExpresionesRegulares[4].mensaje}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </form>
+</div>
+<div align="end" mat-dialog-actions>
+    <button (click)="cerrarModal()" class="mr-2 rounded-pill" mat-button>
+        <mat-icon>close</mat-icon> Cancelar
+    </button>
+    <button (click)="guardarCliente()" [disabled]="!formularioCliente.valid || cargando" class="rounded-pill" color="primary" mat-raised-button>
+        <mat-icon>add</mat-icon> Agregar
+    </button>
+</div>

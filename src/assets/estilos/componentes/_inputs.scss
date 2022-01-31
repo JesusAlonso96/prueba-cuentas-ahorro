@@ -1,0 +1,38 @@
+@import 'variables';
+
+@mixin  inputs {
+  //invalido
+.mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick,
+.mat-form-field .mat-datepicker.mat-datepicker-invalid,
+.mat-form-field .mat-select.mat-select-invalid .mat-select-arrow {
+  color: $error;
+}
+
+.mat-form-field-appearance-outline.mat-form-field-invalid {
+  .mat-datepicker-toggle {
+    color: $error;
+  }
+
+  .mat-input-element {
+    color: $error;
+  }
+
+  .mat-form-field-label {
+    color: $error;
+
+    .mat-form-field-required-marker {
+      color: $error;
+    }
+  }
+
+  .mat-form-field-ripple {
+    background-color: $error;
+  }
+}
+
+
+.mat-error {
+  color: $error;
+}
+      
+}

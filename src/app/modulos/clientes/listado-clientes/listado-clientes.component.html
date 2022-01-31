@@ -1,0 +1,52 @@
+<table class="w-100" mat-table [dataSource]="tablaClientes">
+
+    <!-- ID -->
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let cliente"> {{cliente.id}} </td>
+    </ng-container>
+
+    <!-- NOMBRE COMPLETO -->
+    <ng-container matColumnDef="nombre_completo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre completo </th>
+        <td mat-cell *matCellDef="let cliente"> {{cliente.nombre}} {{cliente.apellido_paterno}}
+            {{cliente.apellido_materno ? cliente.apellido_materno : ''}} </td>
+    </ng-container>
+
+    <!-- DIRECCION -->
+    <ng-container matColumnDef="direccion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Dirección </th>
+        <td mat-cell *matCellDef="let cliente">
+            <span class="d-block">
+                {{cliente.direccion.calle}} {{cliente.direccion.numeroExterior}}{{cliente.direccion.numeroInterior
+                    ? cliente.direccion.numeroInterior :'' }}
+            </span>
+            <span class="d-block">
+                {{cliente.direccion.colonia}} {{cliente.direccion.cp}}
+            </span>
+            <span>
+                {{cliente.direccion.ciudad}}, {{cliente.direccion.estado}}
+            </span>
+        </td>
+    </ng-container>
+
+    <!-- EDAD Y GENERO -->
+    <ng-container matColumnDef="edad_genero">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Edad/Genero </th>
+        <td mat-cell *matCellDef="let cliente">
+            {{cliente.edad}} años, {{mostrarGeneroCliente(cliente)}}
+        </td>
+    </ng-container>
+
+    <!-- FECHA DE REGISTRO -->
+    <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+        <td mat-cell *matCellDef="let cliente"> {{cliente.fechaRegistro | fechaConHora}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnasTabla"></tr>
+    <tr mat-row *matRowDef="let oferta; columns: columnasTabla;" class="fila-tabla py-1"></tr>
+    <!-- <tr mat-row *matRowDef="let oferta; columns: ['detalleDeExpansion']" class="fila-detalle-elemento">
+    </tr> -->
+</table>
+<mat-paginator #paginador [pageSizeOptions]="OpcionesTamanoPaginador"></mat-paginator>

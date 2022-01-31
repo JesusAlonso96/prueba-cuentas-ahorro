@@ -1,0 +1,8 @@
+<mat-toolbar color="primary">
+    <mat-icon class="mr-2">{{menuActivo.icono}}</mat-icon>
+    <h4>{{menuActivo.nombre}}</h4>
+    <span class="espaciador"></span>
+    <button (click)="cerrarSesion()" matTooltip="Cerrar sesión" mat-icon-button>
+        <mat-icon>logout</mat-icon>
+    </button>
+</mat-toolbar>

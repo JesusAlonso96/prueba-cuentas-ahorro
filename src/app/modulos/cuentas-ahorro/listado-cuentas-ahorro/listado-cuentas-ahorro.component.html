@@ -1,0 +1,43 @@
+<mat-form-field appearance="outline" class="w-100">
+    <mat-label>Busqueda</mat-label>
+    <input (keyup)="aplicarFiltro($event)"  autocomplete="off" matInput>
+</mat-form-field>
+<table class="w-100" mat-table [dataSource]="tablaCuentas">
+
+
+    <!-- NÚMERO DE CUENTA -->
+    <ng-container matColumnDef="numero_cuenta">
+        <th mat-header-cell *matHeaderCellDef > Núm. de cuenta </th>
+        <td mat-cell *matCellDef="let cuenta"> {{cuenta.numeroCuenta}} </td>
+    </ng-container>
+
+    <!-- CLIENTE -->
+    <ng-container matColumnDef="id_cliente">
+        <th mat-header-cell *matHeaderCellDef > Id. del cliente </th>
+        <td mat-cell *matCellDef="let cuenta"> {{cuenta.idCliente}} </td>
+    </ng-container>
+
+    <!-- SALDO -->
+    <!-- <ng-container matColumnDef="saldo">
+        <th mat-header-cell *matHeaderCellDef > Saldo </th>
+        <td mat-cell *matCellDef="let cuenta"> {{cuenta.saldo | currency}} </td>
+    </ng-container> -->
+
+    <!-- FECHA DE ULTIMA ACTUALIZACIÓN -->
+    <ng-container matColumnDef="fechaUltimaAct">
+        <th mat-header-cell *matHeaderCellDef > Última act </th>
+        <td mat-cell *matCellDef="let cuenta"> {{cuenta.fechaUltimaAct ? cuenta.fechaUltimaAct : 'N/E'}} </td>
+    </ng-container>
+
+    <!-- ESTADO -->
+    <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef > Estado </th>
+        <td mat-cell *matCellDef="let cuenta"> {{cuenta.estado}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnasTabla"></tr>
+    <tr mat-row *matRowDef="let oferta; columns: columnasTabla;" class="fila-tabla py-1"></tr>
+
+</table>
+<tecas-alertas *ngIf="tablaCuentas && tablaCuentas.filteredData.length == 0" [tipo]="TiposAlertas.Advertencia" mensaje="No se encontraron coincidencias con tu busqueda"></tecas-alertas>
+<mat-paginator #paginador [pageSizeOptions]="OpcionesTamanoPaginador"></mat-paginator>

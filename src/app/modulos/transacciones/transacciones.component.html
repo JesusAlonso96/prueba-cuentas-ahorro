@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <div class="card tarjeta">
+        <div class="d-flex align-items-center  justify-content-between px-5">
+            <div>
+                <h2 class="card-title">Transacciones</h2>
+                <h5 class="card-subtitle">{{transacciones.length}} {{transacciones.length == 1 ? 'transaccion' : 'transacciones'}}</h5>
+            </div>
+            <button (click)="abrirAltaCuentaAhorro()" mat-raised-button class="rounded-pill" color="primary">
+                <mat-icon>add</mat-icon> Nueva transaccion
+            </button>
+        </div>
+        <div class="card-body px-5">
+            <ng-container *ngIf="transacciones.length > 0; else sinTransaccionesBloque">
+                <tecas-listado-transacciones #listadoTransacciones [transacciones]="transacciones"></tecas-listado-transacciones >
+            </ng-container>
+            <ng-template #sinTransaccionesBloque>
+                <tecas-alertas [tipo]="TiposAlertas.Informacion" mensaje="No hay transacciones registradas por el momento.">
+                </tecas-alertas>
+            </ng-template>
+        </div>
+    </div>
+</div>

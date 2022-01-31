@@ -1,0 +1,6 @@
+<div *ngIf="cargando"
+    class="d-flex justify-content-center align-items-center position-absolute contenedor-precargador h-100 w-100"
+    [@carga]="'abierto'">
+    <mat-spinner></mat-spinner>
+    <h1>{{mensaje ? mensaje : 'Cargando...'}}</h1>
+</div>

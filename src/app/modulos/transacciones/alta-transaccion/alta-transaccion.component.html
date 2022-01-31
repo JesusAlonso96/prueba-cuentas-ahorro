@@ -1,0 +1,114 @@
+<h2 class="titulo-modal" mat-dialog-title>Agregar nueva transacción</h2>
+<div mat-dialog-content>
+    <form [formGroup]="formularioTransaccion" class="form my-1">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Tipo de movimiento</mat-label>
+                        <mat-select formControlName="tipo" required>
+                            <mat-option [value]="'Deposito'">
+                                Deposito
+                            </mat-option>
+                            <mat-option [value]="'Retiro'">
+                                Retiro
+                            </mat-option>
+                        </mat-select>
+                        <mat-error
+                            *ngIf="formularioTransaccion.get('tipo').hasError('required') && (formularioTransaccion.get('tipo').dirty  || formularioTransaccion.get('tipo').touched)">
+                            Por favor, ingresa el tipo de movimiento.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6 col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Monto</mat-label>
+                        <input formControlName="monto" placeholder="Ingresa el monto de la transacción"
+                        (blur)="transformarCantidadMontoTransferencia()"
+                            autocomplete="off" required matInput>
+                        <mat-error
+                            *ngIf="formularioTransaccion.get('monto').hasError('required') && (formularioTransaccion.get('monto').dirty  || formularioTransaccion.get('monto').touched)">
+                            Por favor, ingresa el monto de la transacción.
+                        </mat-error>
+                        <mat-error
+                        *ngIf="formularioTransaccion.get('monto').hasError('pattern') && (formularioTransaccion.get('monto').dirty  || formularioTransaccion.get('monto').touched)">
+                        {{ExpresionesRegulares[7].mensaje}}
+                    </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-12">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Número de cuenta</mat-label>
+                        <input autocomplete="off" matInput formControlName="numeroCuenta"
+                            (keyup)="filtrarCuentasDeAhorro()" placeholder="Buscar el número de cuenta"
+                            [matAutocomplete]="autoCompletador" required>
+                        <mat-autocomplete #autoCompletador="matAutocomplete" [displayWith]="mostrarCuenta">
+                            <mat-option *ngFor="let cuenta of cuentasAhorroFiltradas" [value]="cuenta">
+                                {{cuenta.numeroCuenta}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error
+                            *ngIf="formularioTransaccion.get('numeroCuenta').hasError('required') && (formularioTransaccion.get('numeroCuenta').dirty  || formularioTransaccion.get('numeroCuenta').touched)">
+                            Por favor, ingresa el número de cuenta.
+                        </mat-error>
+                        <mat-error
+                            *ngIf="formularioTransaccion.get('numeroCuenta').hasError('invalido') && (formularioTransaccion.get('numeroCuenta').dirty  || formularioTransaccion.get('numeroCuenta').touched)">
+                            Por favor, selecciona un número de cuenta de la lista.
+                        </mat-error>
+                        <mat-hint>Busca el número de cuenta</mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <ng-container  *ngIf="formularioTransaccion.get('numeroCuenta').value && !formularioTransaccion.get('numeroCuenta').hasError('invalido')" >
+            <div class="row">
+                <div class="col-md-4 col-12">
+                    <h5 class="font-weight-normal">Total retiros</h5>
+                    <p>
+                        {{obtenerTotalPorTipoMovimiento('Retiro') | currency}}
+                    </p>
+                </div>
+                <div class="col-md-4 col-12">
+                    <h5 class="font-weight-normal">Total depositos</h5>
+                    <p>
+                        {{obtenerTotalPorTipoMovimiento('Deposito') | currency}}
+                    </p>
+                </div>
+                <div class="col-md-4 col-12">
+                    <h5 class="font-weight-normal">Total en cuenta</h5>
+                    <p>
+                        {{obtenerTotalDeTransacciones() | currency}}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h5 class="font-weight-normal">Total despues de la transacción</h5>
+                    <p>
+                        {{obtenerTotalCuentaDespuesTransaccion() | currency}}
+                    </p>
+                </div>
+            </div>
+            <div *ngIf="formularioTransaccion.get('tipo').value == 'Retiro' && !esMontoTransaccionValido()" class="row">
+                <div class="col-12">
+                    <tecas-alertas [tipo]="TiposAlertas.Error" mensaje="El monto de la transacción es mayor a la cantidad en la cuenta"></tecas-alertas>
+                </div>
+            </div>
+        </ng-container>
+     
+        
+    </form>
+</div>
+<div align="end" mat-dialog-actions>
+    <button (click)="cerrarModal()" class="mr-2 rounded-pill" mat-button>
+        <mat-icon>close</mat-icon> Cancelar
+    </button>
+    <button (click)="guardarTransaccion()" [disabled]="!formularioTransaccion.valid || cargando" class="rounded-pill"
+        color="primary" mat-raised-button>
+        <mat-icon>add</mat-icon> Agregar
+    </button>
+</div>

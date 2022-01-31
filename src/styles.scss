@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'tema-principal';
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+
+/* CLASE CONTENEDORA DEL TEMA PRINCIPAL */
+.tema-principal {
+  @include tema-principal;
+}
+
+
+/* ESTILOS GENERALES */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.espaciador {
+  flex: 1 1 auto;
+}

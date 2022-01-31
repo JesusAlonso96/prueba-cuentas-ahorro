@@ -1,0 +1,13 @@
+<div [@animacionNotificacion]="{value: estadoAnimacion, params:
+    { fundirse: notificacionConfiguracion.animacion.fundirse, desaparecer: notificacionConfiguracion.animacion.desaparecer }}"
+    (@animacionNotificacion.done)="desvaneciendose($event)"
+    class="position-relative notificacion d-flex justify-content-between align-items-center my-1"
+    [class]="obtenerTipoDeNotificacion()">
+    <mat-icon>{{obtenerIconoNotificacion()}}</mat-icon>
+    <span class="texto">
+        {{datosNotificacion.texto}}
+    </span>
+    <button (click)="lanzarEvento()" mat-icon-button>
+        <mat-icon>close</mat-icon>
+    </button>
+</div>

@@ -1,0 +1,45 @@
+
+<tecas-cargador [cargando]="cargando.cargando" [mensaje]="cargando.mensaje"></tecas-cargador>
+<div class="w-100 d-flex" [ngStyle]="{ height:  altoPantalla + 'px' }">
+    <!-- MENÚ LATERALDE LA APLICACIÓN -->
+    <div [@animacionMenuLateral]="menuLateralColapsado ? 'colapsado' : 'expandido'" class="menu-lateral bg-white p-0">
+        <ul class="list-group list-group-flush">
+
+            <!-- MENU -->
+            <li (click)="menuLateralColapsado = !menuLateralColapsado"
+                [matTooltip]="menuLateralColapsado ? 'Expandir menú' : ''" matTooltipPosition="right"
+                matTooltipClass="tooltip-menu" class="cursor-pointer list-group-item  py-3 px-2">
+                <div class="d-flex align-items-center">
+                    <mat-icon [ngClass]="menuLateralColapsado ? 'm-auto' : 'mr-1'">
+                        {{menuLateralColapsado ?
+                        'menu' : 'close'}}
+                    </mat-icon>
+                    <h6 [hidden]="menuLateralColapsado" class="text-uppercase m-0">
+                        {{menuLateralColapsado ? 'Expandir menú': 'Colapsar menú'}}
+                    </h6>
+                </div>
+            </li>
+
+            <!-- MENUS DEL SISTEMA -->
+            <li *ngFor="let menu of menus" [routerLink]="[menu.ruta]"
+                [ngClass]="{'menu-seleccionado': estaMenuActivo(menu)}"
+                [matTooltip]="menuLateralColapsado ? menu.nombre : ''" matTooltipPosition="right"
+                matTooltipClass="tooltip-menu" class="cursor-pointer list-group-item  py-3 px-2">
+                <div class="d-flex align-items-center">
+                    <mat-icon [ngClass]="menuLateralColapsado ? 'm-auto' : 'mr-1'">{{menu.icono}}</mat-icon>
+                    <h6 [hidden]="menuLateralColapsado" class="text-uppercase m-0">
+                        {{menu.nombre}}
+                    </h6>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+    <!-- CONTENEDOR DE LA APLICACIÓN -->
+    <div style="overflow-y: scroll;"  [ngStyle]="{width: menuLateralColapsado ? '96%' : '85%'}">
+        <tecas-barra-de-herramientas [menuActivo]="obtenerMenuActivo()" (cerrarSesionEvento)="cerrarSesion()"></tecas-barra-de-herramientas>
+        <div class="p-4">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

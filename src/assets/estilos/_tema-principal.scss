@@ -1,0 +1,21 @@
+@import '~@angular/material/theming';
+@import 'componentes/inputs';
+@import 'componentes/tarjetas';
+@import 'componentes/modales';
+@import 'componentes/scrollbar';
+
+@include mat-core();
+
+
+$tema-principal-primario: mat-palette($mat-indigo, 900); //#FFD600
+$tema-principal-secundario: mat-palette($mat-green, 800); //#3D5AFE
+$tema-principal-terciario: mat-palette($mat-purple, 800); //#F44336
+$tema-principal: mat-light-theme($tema-principal-primario, $tema-principal-secundario, $tema-principal-terciario);
+
+@mixin tema-principal {
+    @include angular-material-theme($tema-principal);
+    @include inputs;
+    @include tarjetas;
+    @include modales;
+    @include scrollbar;
+}

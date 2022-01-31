@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <div class="card tarjeta">
+        <div class="d-flex align-items-center  justify-content-between px-5">
+            <div>
+                <h2 class="card-title">Administración de clientes</h2>
+                <h5 class="card-subtitle">{{clientes.length}} {{clientes.length == 1 ? 'cliente' : 'clientes'}} activos</h5>
+            </div>
+            <button (click)="abrirAltaCliente()" mat-raised-button class="rounded-pill" color="primary">
+                <mat-icon>add</mat-icon> Nuevo cliente
+            </button>
+        </div>
+        <div class="card-body px-5">
+            <ng-container *ngIf="clientes.length > 0; else sinClientesBloque">
+                <tecas-listado-clientes #listaClientes [clientes]="clientes"></tecas-listado-clientes>
+            </ng-container>
+            <ng-template #sinClientesBloque>
+                <tecas-alertas [tipo]="TiposAlertas.Informacion" mensaje="No hay clientes registrados por el momento.">
+                </tecas-alertas>
+            </ng-template>
+        </div>
+    </div>
+</div>

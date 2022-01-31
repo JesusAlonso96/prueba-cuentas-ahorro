@@ -1,0 +1,33 @@
+@import 'variables';
+
+.notificacion {
+    border-radius: .2857rem;
+    color: $gris-50;
+    padding: 1.25rem;
+    box-shadow: 0 1px 20px 0 rgba($gris-900, .1) !important;
+  
+    .texto {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      font-size: .90rem;
+      letter-spacing: 0.025rem;
+      font-weight: 400;
+      text-align: justify;
+    }
+  }
+
+.notificacion-exito {
+  background-color: $exito;
+}
+
+.notificacion-info {
+  background-color: $info;
+}
+
+.notificacion-advertencia {
+  background-color: $advertencia;
+}
+
+.notificacion-error {
+  background-color: $error;
+}
